@@ -3,6 +3,9 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+const settings = require('./settings');
 
 var routes = require('./routes/index');
 
@@ -16,11 +19,18 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({
+  secret: settings.cookieSecret,
+  store: new MongoStore({
+    host: settings.host,
+    port: settings.port,
+    db: settings.db,
+    url: 'mongodb://localhost:27017/reg'
+  })
+}));
 app.use(express.static(path.join(__dirname, '')));
 
-// app.use('/', indexRouter);
-// app.use('/users', usersRouter);
-
+// routes
 app.get('/', routes.index);
 app.get('/u/:user', routes.user);
 app.post('/post', routes.post);

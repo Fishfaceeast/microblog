@@ -13,7 +13,7 @@ exports.post = function(req, res) {
 };
 
 exports.reg= function(req, res) {
-  
+  res.render('reg', { title: '用户注册' });
 };
 
 exports.doReg = function(req, res) {
