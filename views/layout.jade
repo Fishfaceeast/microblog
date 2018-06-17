@@ -2,6 +2,16 @@ doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='./node_modules/bootstrap/dist/css/bootstrap.min.css')
+    link(rel='stylesheet', href='./public/stylesheets/style.css')
   body
+    ul(class="nav")
+      li(class="nav-item") 
+        a(class="nav-link active" href="./") 首页
+      li(class="nav-item") 
+        a(class="nav-link" href="./login") 登入
+      li(class="nav-item") 
+        a(class="nav-link" href="./reg") 注册
     block content
+    script(src="./node_modules/jquery/dist/jquery.min.js")
+    script(src="./node_modules/bootstrap/dist/js/bootstrap.min.js")

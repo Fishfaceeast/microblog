@@ -1,5 +1,18 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  h1 欢迎来到Microblog
+  p Microblog是一个基于node.js的微博系统
+  p
+    button(class="btn btn-primary") 登陆
+    button(class="btn btn-light")  立即注册
+  div(class="row")
+    div(class="col-4")
+      h2 梅西 说
+      p 跟站桩式队友踢球，好心累。不如早点结束，跟阿圭罗去伊比萨岛躺着。
+    div(class="col-4")
+      h2 格列兹曼 说
+      p 天下第一骚，就是我。
+    div(class="col-4")
+      h2 科斯塔 说
+      p 盛世美颜，就是我。
