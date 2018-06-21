@@ -71,7 +71,7 @@ User.prototype.save = function save(callback) {
 User.get  = function get(username, callback) {
   MongoClient.connect(url,(err, client) => {
     const db = client.db(dbName);
-    const col = db.collection('find');
+    const col = db.collection('inserts');
 
     col.find({name: username}).toArray((err, docs) => {
       if(docs && docs.length > 0){
