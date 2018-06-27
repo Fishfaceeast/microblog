@@ -79,3 +79,19 @@ exports.logOut = function(req, res) {
   req.flash('success', '登出成功');
   res.redirect('/');
 };
+
+exports.checkLogIn = function(req, res, next) {
+  if(!req.session.user) {
+    req.flash('error', '未登录');
+    return res.redirect('/login');
+  }
+  next();
+}
+
+exports.checkNotLogIn = function(req, res, next) {
+  if(req.session.user) {
+    req.flash('error', '已登录');
+    return res.redirect('/');
+  }
+  next();
+}
