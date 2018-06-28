@@ -1,17 +1,29 @@
 var express = require('express');
 const crypto = require('crypto');
 var User = require('../models/user.js');
+var Post = require('../models/post.js');
 
 exports.index = function(req, res) {
   res.render('index', { title: 'Express' });
 };
 
 exports.user = function(req, res) {
-  
-};
-
-exports.post = function(req, res) {
-  
+  User.get(req.params.user, (err, user) => {
+    if(!user) {
+      req.flash('error', '用户不存在');
+      return res.redirect('/');
+    }
+    Post.get(user.name, (err, posts) => {
+      if(err) {
+        req.flash('error', err);
+        return res.redirect('/');
+      }
+      res.render('user', { 
+        title: 'Express',
+        posts,
+      });
+    })
+  })
 };
 
 exports.reg= function(req, res) {
@@ -95,3 +107,28 @@ exports.checkNotLogIn = function(req, res, next) {
   }
   next();
 }
+
+exports.post= function(req, res) {
+  res.render('post', { title: '用户发推' });
+};
+
+exports.doPost = function(req, res) {
+  console.log('doPost')
+  const currentUser = req.session.user;
+  const name = currentUser.name;
+  console.log(name)
+  const newPost = new Post({
+    name,
+    post: req.body['post'],
+  });
+  
+  newPost.save((err) => {
+    if(err){
+      console.log(err)
+      req.flash('error', err);
+      return res.redirect('/');
+    }
+    req.flash('success', '发布成功了');
+    res.redirect(`/u/${name}`);
+  });
+};

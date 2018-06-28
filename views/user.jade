@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  if user
+    form(method="post" action="/post")
+        div(class="control-group")
+            label(for="post") 推文
+            input(type="text" name="post") 
+        div(class="")
+            button(type="submit" class="brn btn-primary") 发推
+  div(class="row")
+    if posts && posts.length
+      each post, index in posts
+        if index % 3 == 0
+          div(class="row")
+            div(class="col-4")
+              h2 #{post.user + ' 说:'}
+              p=post.content
+              p=post.time
+        else
+          div(class="col-4")
+              h2 #{post.user + ' 说:'}
+              
+              p=post.content
+              p=post.time

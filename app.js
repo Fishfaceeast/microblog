@@ -47,7 +47,6 @@ app.use(function(req, res, next) {
 // routes
 app.get('/', routes.index);
 app.get('/u/:user', routes.user);
-app.post('/post', routes.post);
 app.get('/reg', routes.checkNotLogIn);
 app.get('/reg', routes.reg);
 app.post('/reg', routes.checkNotLogIn);
@@ -56,6 +55,8 @@ app.get('/login', routes.login);
 app.post('/login', routes.doLogin);
 app.get('/logout', routes.checkLogIn);
 app.get('/logout', routes.logOut);
+// app.post('/post', routes.checkLogIn);
+app.post('/post', routes.doPost);
 
 // // catch 404 and forward to error handler
 // app.use(function(req, res, next) {
