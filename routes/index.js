@@ -4,7 +4,15 @@ var User = require('../models/user.js');
 var Post = require('../models/post.js');
 
 exports.index = function(req, res) {
-  res.render('index', { title: 'Express' });
+  Post.get(null, (err, posts) => {
+    if(err) {
+      posts = [];
+    }
+    res.render('index', { 
+      title: '首页',
+      posts
+     });
+  })
 };
 
 exports.user = function(req, res) {

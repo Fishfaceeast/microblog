@@ -53,16 +53,20 @@ class Post {
         }
         col.find(query).toArray((err, docs) => {
           if(docs && docs.length > 0){
-            let posts = docs[0].post;
-            const user = docs[0].user;
-            posts.sort((a, b) => a.time - b.time);
-            posts = posts.map(item => {
-              return {
-                ...item,
-                user
-              }
-            })
-            callback(null, posts);
+            let rt = [];
+            docs.forEach((doc, index) => {
+              let posts = doc.post;
+              const user = doc.user;
+              posts = posts.map(item => {
+                return {
+                  ...item,
+                  user
+                }
+              })
+              rt = rt.concat(posts);
+            });
+            rt.sort((a, b) => b.time - a.time);
+            callback(null, rt);
           } else {
             callback(err, null);
           }
